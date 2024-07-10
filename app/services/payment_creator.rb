@@ -21,7 +21,7 @@ module PaymentCreator
           amount: @amount,
           tx_ref: "shodatest-#{random_hash}",
           currency: @currency,
-          return_url: "http://172.22.97.242:3000/shopper/processing-order"
+          return_url: "https://#{ENV['CLIENT_URL']}/shopper/processing-order"
         }
 	    begin
         response = http.post(@payment_initiation_endpoint, json: payment_data)

@@ -13,10 +13,10 @@
 ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
   create_table "bag_items", primary_key: "item_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "product_id"
     t.bigint "shopper_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_bag_items_on_product_id"
     t.index ["shopper_id"], name: "index_bag_items_on_shopper_id"
   end
@@ -82,9 +82,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.string "img_url"
     t.integer "available_stocks"
     t.text "sizes"
+    t.bigint "merchant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "merchant_id"
     t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
 
@@ -94,11 +94,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_shoppers_on_email", unique: true
   end
 
-  add_foreign_key "bag_items", "products", primary_key: "product_id"
-  add_foreign_key "bag_items", "shoppers", primary_key: "shopper_id"
   add_foreign_key "customers", "shoppers", primary_key: "shopper_id"
+  add_foreign_key "discounts", "merchants", primary_key: "merchant_id"
   add_foreign_key "discounts", "products", primary_key: "product_id"
   add_foreign_key "notifications", "merchants", primary_key: "merchant_id"
   add_foreign_key "orders", "customers", primary_key: "customer_id"

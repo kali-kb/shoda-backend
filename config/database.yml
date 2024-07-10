@@ -51,5 +51,6 @@ test:
 production:
   <<: *default
   database: shoda_production
-  username: shoda
-  password: <%= ENV["SHODA_DATABASE_PASSWORD"] %>
+  username: root
+  password: root
+  host: localhost

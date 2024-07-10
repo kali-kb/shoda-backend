@@ -44,6 +44,20 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV["USER_NAME"],
+    :password => ENV["MAIL_PASSWORD"],
+    :address => ENV["MAIL_ADDRESS"],
+    :host => ENV["MAIL_HOST"],
+    :port => '587',
+    :authentication => :login
+  }
+  
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
     .tap  { |logger| logger.formatter = ::Logger::Formatter.new }

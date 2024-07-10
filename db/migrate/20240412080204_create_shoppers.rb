@@ -6,5 +6,6 @@ class CreateShoppers < ActiveRecord::Migration[7.1]
       t.string :password_digest
       t.timestamps null: false
     end
+    add_index :shoppers, :email, unique: true # Added to match schema.rb (assuming email is unique)
   end
 end

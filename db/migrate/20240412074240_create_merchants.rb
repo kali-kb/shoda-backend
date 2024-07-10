@@ -8,5 +8,6 @@ class CreateMerchants < ActiveRecord::Migration[7.1]
       t.string :avatar_img_url
       t.timestamps
     end
+    # add_column :merchants, :bank_detail, :string # Added from schema.rb
   end
 end

@@ -11,5 +11,6 @@ class CreateProducts < ActiveRecord::Migration[7.1]
       t.bigint :merchant_id  #from schema.rb
       t.timestamps
     end
+    add_index :products, :merchant_id # Added to match schema.rb
   end
 end

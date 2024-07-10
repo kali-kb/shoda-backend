@@ -7,5 +7,6 @@ class CreateCustomers < ActiveRecord::Migration[7.1]
       t.string :postal_code
       t.timestamps
     end
+    add_reference :customers, :shopper, foreign_key: {to_table: :shoppers, primary_key: :shopper_id} # Added from schema.rb
   end
 end

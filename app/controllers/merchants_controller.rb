@@ -7,6 +7,7 @@ class MerchantsController < ApplicationController
     		generate_token
 	  		render json: {"merchant": @merchant, token: @token}, status: :created
     	else
+			logger.info @merchant.errors
       		render json: @merchant.errors, status: :unprocessable_entity
     	end
  	end
