@@ -179,6 +179,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     pdf-core (0.10.0)
+    pg (1.5.6)
     prawn (2.5.0)
       matrix (~> 0.4)
       pdf-core (~> 0.10.0)
@@ -294,6 +295,7 @@ DEPENDENCIES
   jbuilder
   jwt
   mysql2 (~> 0.5)
+  pg (~> 1.5, >= 1.5.6)
   prawn (~> 2.5)
   puma (>= 5.0)
   rack-cors

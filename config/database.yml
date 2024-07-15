@@ -49,8 +49,9 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: shoda_production
-  username: root
-  password: root
-  host: localhost
+  url: <%= ENV["DATABASE_URL"] %>
+  # adapter: postgresql
+  # database: shoda_production
+  # username: root
+  # password: root
+  # host: localhost
