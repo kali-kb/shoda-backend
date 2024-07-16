@@ -19,8 +19,8 @@ class MerchantsController < ApplicationController
 
 		sales_data = Order
 			.where(merchant_id: @merchant.merchant_id)
-			.select("DATE_FORMAT(date_created, '%Y-%m') AS month, SUM(total_amount) AS total_sales")
-			.group("DATE_FORMAT(date_created, '%Y-%m')")
+			.select("TO_CHAR(date_created, 'YYYY-MM') AS month, SUM(total_amount) AS total_sales")
+			.group("TO_CHAR(date_created, 'YYYY-MM')")
 			.order("month ASC")
 		
 		# Convert the sales data to the desired format

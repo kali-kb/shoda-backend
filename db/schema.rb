@@ -11,7 +11,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
-  create_table "bag_items", primary_key: "item_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "bag_items", primary_key: "item_id", force: :cascade do |t|
     t.integer "quantity"
     t.bigint "product_id"
     t.bigint "shopper_id"
@@ -21,7 +24,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.index ["shopper_id"], name: "index_bag_items_on_shopper_id"
   end
 
-  create_table "customers", primary_key: "customer_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "customers", primary_key: "customer_id", force: :cascade do |t|
     t.string "address"
     t.string "phone_number", limit: 20
     t.string "city"
@@ -32,7 +35,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.index ["shopper_id"], name: "index_customers_on_shopper_id"
   end
 
-  create_table "discounts", primary_key: "discount_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "discounts", primary_key: "discount_id", force: :cascade do |t|
     t.integer "rate"
     t.date "expiry"
     t.datetime "created_at", null: false
@@ -43,7 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.index ["product_id"], name: "index_discounts_on_product_id"
   end
 
-  create_table "merchants", primary_key: "merchant_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "merchants", primary_key: "merchant_id", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
@@ -54,7 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.string "bank_detail"
   end
 
-  create_table "notifications", primary_key: "notification_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "notifications", primary_key: "notification_id", id: :bigint, default: -> { "nextval('notifications_id_seq'::regclass)" }, force: :cascade do |t|
     t.string "message"
     t.bigint "merchant_id", null: false
     t.datetime "created_at", null: false
@@ -63,11 +66,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.index ["merchant_id"], name: "index_notifications_on_merchant_id"
   end
 
-  create_table "orders", primary_key: "order_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "orders", primary_key: "order_id", force: :cascade do |t|
     t.integer "total_items"
     t.integer "total_amount"
     t.string "status"
-    t.timestamp "date_created"
+    t.datetime "date_created", precision: nil
     t.bigint "customer_id"
     t.bigint "merchant_id"
     t.string "order_number"
@@ -75,7 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.index ["merchant_id"], name: "index_orders_on_merchant_id"
   end
 
-  create_table "products", primary_key: "product_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "products", primary_key: "product_id", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "price"
@@ -88,7 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
 
-  create_table "shoppers", primary_key: "shopper_id", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "shoppers", primary_key: "shopper_id", force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
     t.string "password_digest"
