@@ -11,8 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
+  create_schema "xata"
+
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+  enable_extension "vector"
 
   create_table "bag_items", primary_key: "item_id", force: :cascade do |t|
     t.integer "quantity"
@@ -100,10 +105,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_041426) do
     t.index ["email"], name: "index_shoppers_on_email", unique: true
   end
 
-  add_foreign_key "customers", "shoppers", primary_key: "shopper_id"
-  add_foreign_key "discounts", "merchants", primary_key: "merchant_id"
-  add_foreign_key "discounts", "products", primary_key: "product_id"
-  add_foreign_key "notifications", "merchants", primary_key: "merchant_id"
-  add_foreign_key "orders", "customers", primary_key: "customer_id"
-  add_foreign_key "orders", "merchants", primary_key: "merchant_id"
+  add_foreign_key "customers", "30785812", column: "shopper_id", primary_key: "shopper_id"
+  add_foreign_key "discounts", "30785770", column: "product_id", primary_key: "product_id"
+  add_foreign_key "discounts", "30785780", column: "merchant_id", primary_key: "merchant_id"
+  add_foreign_key "notifications", "30785780", column: "merchant_id", primary_key: "merchant_id"
+  add_foreign_key "orders", "30785780", column: "merchant_id", primary_key: "merchant_id"
+  add_foreign_key "orders", "30785824", column: "customer_id", primary_key: "customer_id"
 end
